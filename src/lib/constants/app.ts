@@ -6,11 +6,11 @@ export const TRADE_PERIODS = [
     timing: 1,
     label: '1 sec',
   },  {
-    timing: 10,
-    label: '10 sec',
-  },  {
     timing: 15,
     label: '15 sec',
+  },  {
+    timing: 30,
+    label: '30 sec',
   },
 ];
 
