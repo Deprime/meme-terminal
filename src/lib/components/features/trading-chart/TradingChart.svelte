@@ -1,98 +1,148 @@
 <script lang="ts">
-  import { onMount, afterUpdate } from 'svelte';
+  import { onMount } from 'svelte';
   import { createChart } from 'lightweight-charts';
+  import type { IChartApi, WhitespaceData } from 'lightweight-charts';
+  import { BubbleSeries } from './custom-series-bubble';
+  import type { BubbleData } from './data-bubbles';
+
+  // Components
+  import Button from '$lib/components/ui/button/Button.svelte';
+  import Loader from '$lib/components/ui/loader/Loader.svelte';
+
+  // Utils
+  import { mapTradesToLine, aggregateTrades } from '$lib/untils/chart';
 
   // Types
-  import type { ITrade } from '$lib/types/trade';
+  import type { ITrade, ITradePeriod } from '$lib/types/trade';
+
+  // Constants
+  import { TRADE_PERIODS } from '$lib/constants/app';
 
   // Props
   let {
+    order = $bindable(false),
     trades,
-    showCandles = true,
-    showVolumeCircles = true,
   }: {
     trades: ITrade[],
-    showCandles?: boolean,
-    showVolumeCircles?: boolean,
+    order?: boolean,
   } = $props();
 
   // Data
+  let period: ITradePeriod = $state(TRADE_PERIODS[0]);
+  let count = $state(0)
   let chartContainer: HTMLDivElement;
-  let chart: any;
-  let candleSeries: any;
-  let lineSeries: any;
+  let chart: IChartApi|null = $state(null);
+  let bubbleSeries;
+
+  // Methods
+  const onPeriodClick = (item: ITradePeriod) => {
+    period = item;
+    updateChart();
+  } 
+
+  function initChart() {
+    chart = createChart(chartContainer, {
+    layout: {
+      textColor: 'black',
+      background: { type: 'solid', color: 'white' },
+    },
+      // autoSize: true,
+      timeScale: {
+        timeVisible: true,
+        secondsVisible: true
+      },
+      rightPriceScale: {
+        ticksVisible: true,
+      }
+    });
+
+    const bubbleSeriesView = new BubbleSeries();
+    bubbleSeries = chart.addCustomSeries(bubbleSeriesView, {
+      lineWidth: 2,
+      priceFormat: {
+        type: 'price', 
+        precision: 7, 
+        minMove: 0.0000001
+      }
+    });
+  }
+
+  function updateChart() {
+    if (!chart) 
+      return;
+    const mapped: (BubbleData | WhitespaceData)[] = mapTradesToLine(trades);
+    const data = period.timing === 0 
+      ? mapped 
+      : aggregateTrades(mapped, period.timing);
+
+    count = data.length;
+    bubbleSeries.setData(data);
+
+    // Limit order
+    if (order) {
+      const maxPrice = mapped.reduce((prev, curr) => {
+        return curr.value > prev ? curr.value : prev;
+      }, 0);
+      const priceLine = {
+        price: maxPrice * 1.5,
+        color: '#0C7FE6',
+        lineWidth: 1,
+        lineStyle: 2, // LineStyle.Dashed
+        axisLabelVisible: true,
+        title: 'limit order',
+      };
+      bubbleSeries.createPriceLine(priceLine);
+      order = false;
+    }
+
+    chart.timeScale();
+  }
+
+  $effect(() => {
+    if (chart) {
+      updateChart();
+    }
+  })
 
   onMount(() => {
     initChart();
   });
-
-  afterUpdate(() => {
-    updateChart();
-  });
-
-  function initChart() {
-    chart = createChart(chartContainer, {
-      layout: { background: { color: '#1E1E1E' }, textColor: '#D9D9D9' },
-      grid: { vertLines: { color: '#2B2B43' }, horzLines: { color: '#2B2B43' } },
-    });
-
-    if (showCandles) {
-      candleSeries = chart.addCandlestickSeries({
-        upColor: '#26A69A',
-        downColor: '#EF5350',
-        wickUpColor: '#26A69A',
-        wickDownColor: '#EF5350',
-      });
-    }
-
-    if (showVolumeCircles) {
-      lineSeries = chart.addLineSeries({ color: 'transparent' });
-    }
-  }
-
-  function updateChart() {
-    if (!chart) return;
-
-    if (showCandles && candleSeries) {
-      const candleData = trades.map(trade => ({
-        time: trade.time,
-        open: trade.open,
-        high: trade.high,
-        low: trade.low,
-        close: trade.close,
-        ...(trade.direction === 'sell' && trade.close >= trade.open
-          ? { open: trade.close, close: trade.open }
-          : {}),
-      }));
-      candleSeries.setData(candleData);
-    }
-
-    if (showVolumeCircles && lineSeries) {
-      const markers = trades.map(trade => ({
-        time: trade.time,
-        position: 'aboveBar',
-        color: trade.direction === 'buy' ? '#26A69A' : '#EF5350',
-        shape: 'circle',
-        size: Math.sqrt(trade.volume / 1000),
-        text: `Vol: ${trade.volume}`,
-      }));
-      lineSeries.setMarkers(markers);
-      lineSeries.setData(trades.map(trade => ({ time: trade.time, value: trade.price || trade.close })));
-    }
-
-    chart.timeScale().fitContent();
-  }
-
-  $: {
-    if (chart) updateChart();
-  }
 </script>
 
-<div bind:this={chartContainer} style="width: 100%; height: 500px;" />
+<div class="flex flex-col gap-2 w-full h-full max-h-[600px]">
+  <header class="flex gap-2 p-1 w-full justify-between">
+    <div class="flex items-center gap-2 px-4 bg-stone-100 w-fit rounded-lg ">
+      <div class="text-xs text-stone-600">
+        Marker count: {count}
+      </div>
+    </div>
 
-<style>
-  div {
-    border-radius: 8px;
-    overflow: hidden;
-  }
-</style>
+    <div class="flex gap-2 p-1 bg-stone-100 w-fit rounded-lg">
+      {#each TRADE_PERIODS as item (item.timing)}
+        <Button 
+          size="sm"
+          disabled={trades.length === 0}
+          variant={item.timing === period.timing ? "primary" : "text"}
+          onclick={() => { onPeriodClick(item) }}
+        > 
+          {item.label}
+        </Button>
+      {/each}
+    </div>
+  </header>
+
+  <div class="w-full h-full relative" >
+    <div class="w-full h-[500px]" bind:this={chartContainer}></div>
+
+    {#if trades.length === 0}
+      <div class="absolute top-0 z-10 inset-0 size-full flex justify-center items-center bg-white/50">
+        <div class="flex flex-col items-center gap-2">
+         <Loader size="lg" />
+         <p class="text-xs text-gray-500">
+          Awaiting new trades
+        </p>
+        </div>
+      </div>
+    {/if}
+  </div>
+</div>
