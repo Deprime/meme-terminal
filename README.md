@@ -1,6 +1,6 @@
 # Meme Terminal
 
-This is a mini app that allows you to track transactions on a meme token through gRPC
+This is a mini app that allows you to track trades on a meme token through gRPC
 
 ## Tech stack
 
