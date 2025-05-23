@@ -53,10 +53,10 @@
       },
       rightPriceScale: {
         ticksVisible: true,
-        autoScale: false, // disables auto scaling based on visible content
+        autoScale: true, // disables auto scaling based on visible content
         scaleMargins: {
           top: 0.45,
-          bottom: 0.01,
+          bottom: 0.1,
         }
       },
     });
