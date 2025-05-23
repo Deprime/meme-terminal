@@ -42,10 +42,10 @@
 
   function initChart() {
     chart = createChart(chartContainer, {
-    layout: {
-      textColor: 'black',
-      background: { type: 'solid', color: 'white' },
-    },
+      layout: {
+        textColor: 'black',
+        background: { type: 'solid', color: 'white' },
+      },
       // autoSize: true,
       timeScale: {
         timeVisible: true,
@@ -53,7 +53,12 @@
       },
       rightPriceScale: {
         ticksVisible: true,
-      }
+        autoScale: false, // disables auto scaling based on visible content
+        scaleMargins: {
+          top: 0.45,
+          bottom: 0.01,
+        }
+      },
     });
 
     const bubbleSeriesView = new BubbleSeries();
