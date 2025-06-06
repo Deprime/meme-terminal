@@ -1,5 +1,6 @@
 <script>
-  import Button from "$lib/components/ui/button/Button.svelte";
+  // import UButton from "@/ui/u-button/UButton.svelte";
+  import { Button } from "$lib/components/ui/button";
 
   // Props
   let {
@@ -9,9 +10,16 @@
 </script>
 
 <div>
+  <Button
+    variant={disabled ? "default" : "secondary"}
+    onclick={() => { }}
+  >
+    Set limit order
+  </Button>
+
   <Button 
+    variant="secondary"
     {disabled}
-    variant="primary-outline"
     onclick={() => { onset?.() }}
   >
     Set limit order
