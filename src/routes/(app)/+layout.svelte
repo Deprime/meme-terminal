@@ -8,8 +8,7 @@
   import LanguagesIcon from "@lucide/svelte/icons/languages";
 
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
-  import { buttonVariants } from "$lib/components/ui/button";
-  import { Button } from "$lib/components/ui/button";
+  import { buttonVariants, Button } from "$lib/components/ui/button";
 
   // Props
 	let { children } = $props();

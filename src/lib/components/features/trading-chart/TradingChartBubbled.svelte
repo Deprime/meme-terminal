@@ -7,7 +7,7 @@
 
   // Components
   // import UButton from '@/ui/u-button/UButton.svelte';
-  import { Button } from "$lib/components/ui/button";
+  // import { Button } from "$lib/components/ui/button";
   import Loader from '$lib/components/ui/loader/Loader.svelte';
 
   // Utils
