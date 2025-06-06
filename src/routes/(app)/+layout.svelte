@@ -8,7 +8,7 @@
   import LanguagesIcon from "@lucide/svelte/icons/languages";
 
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
-  import { buttonVariants } from "$lib/components/ui/button";
+  // import { buttonVariants } from "$lib/components/ui/button";
 
   // Props
 	let { children } = $props();
@@ -37,14 +37,14 @@
 <main class="flex flex-col w-full h-dvh">
   <header class="flex items-center justify-between p-2 border-b border-stone-800">
     <div>
-
+<!-- class={buttonVariants({ variant: "outline" })} -->
     </div>
     <div class="flex items-center gap-4">
       <DropdownMenu.Root>
         <DropdownMenu.Trigger 
-          class={buttonVariants({ variant: "outline" })}
+          
         >
-          <SettingsIcon />
+          <SettingsIcon size={24} class="text-gray-500" />
         </DropdownMenu.Trigger>
         <DropdownMenu.Content class="w-56" align="end">
           <DropdownMenu.Group>
