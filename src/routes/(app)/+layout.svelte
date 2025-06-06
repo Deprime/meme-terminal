@@ -9,7 +9,7 @@
 
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
   import { buttonVariants } from "$lib/components/ui/button";
-  import Button from "@/ui/button/button.svelte";
+  import Button from "$lib/components/ui/button/button.svelte";
 
   // Props
 	let { children } = $props();
