@@ -8,7 +8,7 @@
   import LanguagesIcon from "@lucide/svelte/icons/languages";
 
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
-  import { buttonVariants, Button } from "$lib/components/ui/button";
+  import { buttonVariants } from "$lib/components/ui/button";
 
   // Props
 	let { children } = $props();
@@ -73,9 +73,9 @@
         </DropdownMenu.Content>
       </DropdownMenu.Root>
 
-      <Button variant="secondary">
+      <!-- <Button variant="secondary">
         Connect wallet
-      </Button>
+      </Button> -->
     </div>
   </header>
 
