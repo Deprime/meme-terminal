@@ -97,9 +97,7 @@
       },
     });
 
-    data = generateOHLCV(1000);
-
-
+    data = generateOHLCV(10_000);
 
     const lineData = data.map(el => ({
       time: el.time,
