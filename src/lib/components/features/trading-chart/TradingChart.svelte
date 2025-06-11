@@ -200,7 +200,7 @@
 
 <div class="flex flex-col gap-2 w-full h-full max-h-[600px]">
   <div class="w-full h-full relative" >
-    <div class="w-full h-[500px]" bind:this={chartContainer}></div>
+    <div class="w-full h-[400px]" bind:this={chartContainer}></div>
 
     <!-- {#if trades.length === 0}
       <div class="absolute top-0 z-10 inset-0 size-full flex justify-center items-center bg-white/50">

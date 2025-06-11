@@ -1,10 +1,9 @@
+// Vendors
+@use 'tippy.js/dist/tippy.css';
+@use './styles/vendors/tippy-theme.scss';
+
 @import "tailwindcss";
 @import "tw-animate-css";
-
-/* Vendors */
-@import 'tippy.js/dist/tippy.css';
-@import './styles/vendors/tippy-theme.scss';
-
 @custom-variant dark (&:is(.dark *));
 
 :root {
