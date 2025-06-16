@@ -108,8 +108,8 @@
       lastValueVisible: false, // hide the last value marker for this series
       crosshairMarkerVisible: false, // hide the crosshair marker for this series
       lineColor: 'transparent', // hide the line
-      topColor: 'rgba(56, 33, 110,0.4)',
-      bottomColor: 'rgba(56, 33, 110, 0.1)',
+      topColor: 'rgba(56, 33, 110,0.3)',
+      bottomColor: 'rgba(56, 33, 110, 0.0)',
     });
     // Set the data for the Area Series
     areaSeries.setData(lineData);
@@ -119,8 +119,8 @@
     mainSeries.applyOptions({
       wickUpColor: '#2dd4bf',
       upColor: '#2dd4bf',
-      // wickDownColor: '#f87171',
-      // downColor: '#ec4899',
+      wickDownColor: '#e11d48',
+      downColor: '#e11d48',
       borderVisible: false,
     });
 

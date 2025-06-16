@@ -6,9 +6,11 @@
 
   // Components
   import { TokenImage, TokenMint } from "@/shared";
+  import { Separator } from "@/ui/separator";
 
   // Methods
-  const onTokenClick = (token: IToken) => {
+  const onTokenClick = (e: Event, token: IToken) => {
+    e.preventDefault();
     const url = `/${CHAINS.SOL.symbol}/${token.symbol}`;
     goto(url);
   }
@@ -36,21 +38,26 @@
     </div>
 
     <div class="">
-      <div class="p-2">
-        <h3 class="text-sm font-semibold text-slate-300">
-          Launched
-        </h3>
+      <div>
+        <header class="py-2 px-4">
+          <h3 class="text-sm font-semibold text-slate-300">
+            Launched
+          </h3>
+        </header>
+
         <ul>
           {#each TOKENS as token (token.mint)}
-            <!-- svelte-ignore a11y_click_events_have_key_events -->
-            <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-            <li 
-              class="w-full flex gap-3 p-2"
-              onclick={() => { onTokenClick(token) }}
-            >
-              <TokenImage {token} />
-              <div class="w-full flex flex-col gap-0.5">
-                <p class="w-full flex gap-0.5">
+            <li class="relative z-[2] flex gap-3 py-3 px-4 w-full cursor-pointer transition-colors  hover:bg-stone-800/50 border-b border-b-stone-800/50">
+              <a 
+                href="/{CHAINS.SOL.symbol}/{token.symbol}" 
+                aria-label="listitem"
+                class="absolute inset-0 z-[1]"
+              >
+              </a>
+
+              <TokenImage {token} localImgSrc showLaunchpad />
+              <div class="w-fit flex flex-col gap-0.5">
+                <p class="w-full flex gap-1">
                   <span class="text-sm text-gray-300 font-semibold">
                     {token.title}
                   </span>
@@ -59,7 +66,16 @@
                   </span>
                 </p>
 
-                <TokenMint mint={token.mint} />
+                <div class="flex gap-2">
+                  <span class="text-sm text-teal-500">
+                    21m
+                  </span>
+                  <Separator orientation="vertical" />
+                  <TokenMint 
+                    class="relative z-[3]" 
+                    mint={token.mint} 
+                  />
+                </div>
               </div>
             </li>
           {/each}

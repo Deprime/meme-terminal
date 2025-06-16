@@ -1,0 +1,52 @@
+export const TRADES_HEADERS = [
+  {
+    key: "time",
+    label: "",
+    tip: "The date/time the transaction was made",
+    sortable: true,
+    filterable: false,
+    switchable: true,
+  }, {
+    key: "type",
+    label: "Type",
+    tip: "Filter by transaction type (Buy, Sell, Add, Remove)",
+    sortable: false,
+    filterable: true,
+    switchable: false,
+  }, {
+    key: "value",
+    label: "Price",
+    tip: "The value of the transaction in SOL/USD",
+    sortable: false,
+    filterable: false,
+    switchable: false,
+  }, {
+    key: "amount",
+    label: "Amount",
+    tip: "The amount of tokens bought/sold",
+    sortable: false,
+    filterable: false,
+    switchable: false,
+  }, {
+    key: "total",
+    label: "",
+    tip: "",
+    sortable: false,
+    filterable: false,
+    switchable: true,
+  }, {
+    key: "maker",
+    label: "Maker",
+    tip: "Filter by maker wallet address",
+    sortable: false,
+    filterable: true,
+    switchable: false,
+  },
+  // {
+  //   key: "actions",
+  //   label: "",
+  //   tip: "View transaction details",
+  //   sortable: false,
+  //   filterable: true,
+  // },
+]

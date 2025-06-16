@@ -12,10 +12,12 @@
   // Services
   import binanceApi from "$lib/api/binance";
 
+  // Stores
+  import ratesStore from "$lib/stores/rates";
+
   // Data
   let intervalId: ReturnType<typeof setInterval>;
   let interval = 30_000;
-  let price = $state(0);
   let chain = $derived.by(() => {
     const { chain } = page.params;
     return CHAINS[chain] ? CHAINS[chain] : CHAINS.SOL;
@@ -26,7 +28,7 @@
     try {
       const result = await binanceApi.getSymbolPrice(chain.symbol);
       if (result.price) {
-        price = parseFloat(result.price);
+        $ratesStore.SOL = parseFloat(result.price);
       }
     }
     catch (e) {
@@ -63,7 +65,7 @@
     >
       <SolanaIcon /> 
       <span class="text-[11px] leading-3 text-sky-500">
-        ${price}
+        ${$ratesStore.SOL}
       </span>
     </div>
   </div>

@@ -1,8 +1,15 @@
 <script lang="ts">
-  import { TOKEN } from "$lib/constants/app";
+  import { TOKEN, type IToken } from "$lib/constants/app";
 
   // Components
   import CopyIcon from "@lucide/svelte/icons/copy";
+
+  // Props
+  let {
+    token
+  }: {
+    token: IToken
+  } = $props();
 
   let src = $state(`/img/tokens/${TOKEN.title.toLocaleLowerCase()}.webp`);
 </script>

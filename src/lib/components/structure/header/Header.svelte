@@ -8,31 +8,36 @@
 
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
   import { Button, buttonVariants } from "$lib/components/ui/button";
+  import Navigation from "./Navigation.svelte";
 
-  // Themes
-  const themes = [{
-    label: "Light",
-    tag: "light",
-    callback: () => {
-      setMode("light")
-    },
-  }, {
-    label: "Dark",
-    tag: "dark",
-    callback: () => {
-      setMode("dark")
-    },
-  }, {
-    label: "System",
-    tag: "system",
-    callback: () => {
-      resetMode()
-    },
-  }]
+  // Data
+  const themes = [
+    {
+      label: "Light",
+      tag: "light",
+      callback: () => {
+        setMode("light")
+      },
+    }, {
+      label: "Dark",
+      tag: "dark",
+      callback: () => {
+        setMode("dark")
+      },
+    }, {
+      label: "System",
+      tag: "system",
+      callback: () => {
+        resetMode()
+      },
+    }
+  ];
 </script>
   
   <header class="flex items-center justify-between p-2 border-b border-stone-800">
-    <div></div>
+    <div>
+      <Navigation />
+    </div>
     <div class="flex items-center gap-3">
       <DropdownMenu.Root>
         <DropdownMenu.Trigger class={buttonVariants({ variant: "outline", size: "sm" })}>

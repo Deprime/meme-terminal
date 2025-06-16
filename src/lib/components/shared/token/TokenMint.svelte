@@ -8,8 +8,12 @@
   // Props
   let {
     mint,
+    onclick,
+    ...other
   }: {
     mint: string,
+    onclick?: (e: Event) => void,
+    class?: string
   } = $props(); 
 
   // Data
@@ -22,17 +26,21 @@
     return `${prefix}...${suffix}`;
   });
 
-  const onCopied = (e) => {
+  const onCopied = (e: Event) => {
     e.preventDefault();
+    e.stopPropagation();
+
     copied = true;
     setTimeout(() => {
       copied = false;
-    }, 1_000)
+    }, 1_000);
+
+    onclick?.(e);
   }
 </script>
 
   <button 
-    class="text-xs text-gray-400 hover:text-gray-300 flex items-center gap-2 cursor-pointer"
+    class="text-xs text-gray-400 hover:text-gray-300 flex items-center gap-2 p-0.5 cursor-pointer {other?.class}"
     use:copy={{ text: mint }} 
     oncopied={onCopied}
   >
