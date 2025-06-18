@@ -60,7 +60,7 @@
   }
 </script>
 
-<div class="w-full h-[804px] overflow-hidden flex flex-col border-t border-t-stone-800">
+<div class="w-full h-[804px] overflow-y-auto flex flex-col border-t border-t-stone-800">
   <div class="sticky top-0 z-10 hidden xl:flex flex-shrink-0 items-center justify-between h-9 min-w-max border-b border-b-stone-800 px-4">
     {#each TRADES_HEADERS as header (header.key)}
       <div 
