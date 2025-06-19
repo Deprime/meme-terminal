@@ -60,8 +60,16 @@
   }
 </script>
 
-<div class="w-full h-[804px] overflow-y-auto flex flex-col border-t border-t-stone-800">
-  <div class="sticky top-0 z-10 hidden xl:flex flex-shrink-0 items-center justify-between h-9 min-w-max border-b border-b-stone-800 px-4">
+<div 
+  class="scroll-hidden w-full h-[804px] flex flex-col"
+  class:overflow-y-auto={!loading}
+  class:overflow-hidden={loading}
+>
+  <div class="sticky top-0 z-10 
+  hidden xl:flex flex-shrink-0 items-center justify-between 
+  h-9 min-w-max 
+  bg-stone-950/50 backdrop-blur-sm
+  border-b border-b-stone-800 px-4">
     {#each TRADES_HEADERS as header (header.key)}
       <div 
         class="flex gap-2 items-center min-w-40"
@@ -144,7 +152,7 @@
   </div>
 
   {#if loading}
-    {#each Array(10).keys()}
+    {#each Array(20).keys()}
       <TradesListPlaceholder />
     {/each}
   {:else}

@@ -5,8 +5,12 @@
 @import 'tippy.js/dist/tippy.css';
 @import './styles/vendors/tippy-theme.scss';
 
-/**/
+/* Typography */
 @import './styles/typography.css';
+
+
+/* helpers */
+@import './styles/helpers.scss';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -54,7 +58,8 @@
   --card-foreground: oklch(0.985 0.001 106.423);
   --popover: oklch(0.216 0.006 56.043);
   --popover-foreground: oklch(0.985 0.001 106.423);
-  --primary: oklch(0.923 0.003 48.717);
+  /* --primary: oklch(0.923 0.003 48.717); */
+  --primary: #5BBE7B;
   --primary-foreground: oklch(0.216 0.006 56.043);
   --secondary: oklch(0.268 0.007 34.298);
   --secondary-foreground: oklch(0.985 0.001 106.423);
@@ -62,7 +67,8 @@
   --muted-foreground: oklch(0.709 0.01 56.259);
   --accent: oklch(0.268 0.007 34.298);
   --accent-foreground: oklch(0.985 0.001 106.423);
-  --destructive: oklch(0.704 0.191 22.216);
+  /* --destructive: oklch(0.704 0.191 22.216); */
+  --destructive: #E96B82;
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.553 0.013 58.071);

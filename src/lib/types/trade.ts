@@ -1,4 +1,5 @@
 export type TDirection = "buy" | "sell";
+export type TOrderType = "market" | "limit" | "advanced";
 
 export interface ITrade {
   time: string;

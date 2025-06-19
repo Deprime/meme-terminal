@@ -3,15 +3,17 @@
   import { page } from "$app/state";
 
   // Components
-  import { Separator,  } from "@/ui/separator";
+  import { Separator } from "@/ui/separator";
   import { ScrollArea } from "@/ui/scroll-area";
   import { 
     TradingChart, 
     // CabalConnector,
     // OrderControl,
     TradesList,
+    TokenSummary,
+    TokenTradingTools,
   } from "$lib/components/features";
-  import { TokenImage, TokenMint } from "@/shared";
+  import { TokenImage, TokenMint, } from "@/shared";
 
   // Store
   import tradesStore from "$lib/stores/trades";
@@ -75,10 +77,10 @@
   }); 
 </script>
 
-<div class="flex justify-center w-full h-full">
+<div class="flex justify-center size-full overflow-hidden">
   <div class="flex flex-col flex-grow justify-start size-full border-r border-r-stone-800">
-    <header class="w-full flex justify-between items-center gap-4 border-b border-b-stone-800">
-      <div class="flex gap-4 py-2 px-3">
+    <header class="w-full h-16 flex flex-shrink-0 justify-between items-center gap-4 border-b border-b-stone-800">
+      <div class="flex gap-4 py-1.5 px-3">
         <TokenImage {token} size="sm" localImgSrc showLaunchpad />
         <!-- <CabalConnector /> -->
         <div class="w-fit flex flex-col gap-0.5">
@@ -104,6 +106,7 @@
         </div>
       </div>
     </header>
+
     <div class="flex">
       <div class="flex flex-col h-full w-16 gap-1 p-1">
         <div class="border border-stone-800/30 size-12 rounded"></div>
@@ -117,9 +120,8 @@
     </div>
   </div>
 
-  <ScrollArea class="w-full max-w-72 h-full overflow-y-auto">
-    <header class="p-2 text-sm text-gray-400 font-semibold">
-      Sidebar B
-    </header>
+  <ScrollArea type="hover" class="w-full max-w-72 h-full">
+    <TokenSummary {token} />
+    <TokenTradingTools {token} />
   </ScrollArea>
 </div>

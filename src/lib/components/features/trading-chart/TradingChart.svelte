@@ -152,7 +152,9 @@
       : aggregateTrades(mapped, period.timing);
 
     count = data.length;
-    bubbleSeries.setData(data);
+    if (bubbleSeries) {
+      bubbleSeries.setData(data);
+    }
 
     // Limit order
     if (order) {
@@ -167,7 +169,10 @@
         axisLabelVisible: true,
         title: 'limit order',
       };
-      bubbleSeries.createPriceLine(priceLine);
+
+      if (bubbleSeries) {
+        bubbleSeries.createPriceLine(priceLine);
+      }
       order = false;
     }
 
